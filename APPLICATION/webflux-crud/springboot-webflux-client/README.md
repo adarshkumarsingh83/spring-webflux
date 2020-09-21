@@ -1,10 +1,23 @@
-# Getting Started
+# springboot-webflux-client
 
-### Reference Documentation
-For further reference, please consider the following sections:
+* mvn clean pakcage 
+* mvn spring-boot:run 
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/reference/htmlsingle/#using-boot-devtools)
 
+### To save the employee in db 
+* curl -X POST -H "Content-Type: application/json" -d '{"id":1, "firstName":"adarsh","lastName":"kumar", "career":"it" }' http://localhost:9090/api/employee -v
+* curl -X POST -H "Content-Type: application/json" -d '{"id":2, "firstName":"radha","lastName":"singh", "career":"it" }' http://localhost:9090/api/employee -v
+* curl -X POST -H "Content-Type: application/json" -d '{"id":3, "firstName":"amit","lastName":"kumar", "career":"it" }' http://localhost:9090/api/employee -v
+
+### To get employee by id 
+* curl -v http://localhost:9090/api/employee/1
+
+### To get all employee List
+* curl -v http://localhost:9090/api/employees
+
+### To update employee 
+*  curl -X PUT -H "Content-Type: application/json" -d '{"id":1, "firstName":"adarsh","lastName":"kumar singh", "career":"it" }' http://localhost:9090/api/employee/1 -v
+
+
+### To delete employee 
+* curl -X DELETE  http://localhost:9090/api/employee/3 -v

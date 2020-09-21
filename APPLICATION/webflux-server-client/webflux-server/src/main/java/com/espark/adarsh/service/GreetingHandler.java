@@ -1,7 +1,9 @@
 package com.espark.adarsh.service;
 
+import com.espark.adarsh.bean.DataHolder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -24,8 +26,9 @@ public class GreetingHandler {
             name = request.queryParam("name").get();
         }
         log.info("GreetingHandler.greetAdmin()");
-        Map<String, Object> data = new HashMap<>();
-        data.put("message", "Hello, Admin! " + name);
+        DataHolder data = new DataHolder();
+        data.setMessage("request processed");
+        data.setData("Hello, Admin! " + name);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(this.getJson(data)));
     }
@@ -36,8 +39,9 @@ public class GreetingHandler {
             name = request.queryParam("name").get();
         }
         log.info("GreetingHandler.greetUser()");
-        Map<String, Object> data = new HashMap<>();
-        data.put("message", "Hello, User! " + name);
+        DataHolder data = new DataHolder();
+        data.setMessage("request processed");
+        data.setData("Hello, User! " + name);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(this.getJson(data)));
     }
@@ -48,14 +52,15 @@ public class GreetingHandler {
             name = request.queryParam("name").get();
         }
         log.info("GreetingHandler.greetGuest()");
-        Map<String, Object> data = new HashMap<>();
-        data.put("message", "Hello, Guest! " + name);
+        DataHolder data = new DataHolder();
+        data.setMessage("request processed");
+        data.setData("Hello, Guest! " + name);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(this.getJson(data)));
     }
 
 
-    private String getJson(Map<String, Object> data) {
+    private String getJson(DataHolder data) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(data);

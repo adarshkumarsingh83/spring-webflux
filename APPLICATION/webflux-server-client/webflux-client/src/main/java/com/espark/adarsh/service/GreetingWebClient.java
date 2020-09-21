@@ -1,5 +1,6 @@
 package com.espark.adarsh.service;
 
+import com.espark.adarsh.bean.DataHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class GreetingWebClient {
                     .uri("/admin?name=" + name)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange();
-            String response = ">> result = " + adminResult.flatMap(res -> res.bodyToMono(String.class)).block();
+            String response = ">> result = " + adminResult.flatMap(res -> res.bodyToMono(DataHolder.class)).block().getData();
             log.info(response);
             return response;
         } else if (type.equalsIgnoreCase("user")) {
@@ -30,7 +31,7 @@ public class GreetingWebClient {
                     .uri("/user?name=" + name)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange();
-            String response = ">> result = " + userResult.flatMap(res -> res.bodyToMono(String.class)).block();
+            String response = ">> result = " + userResult.flatMap(res -> res.bodyToMono(DataHolder.class)).block().getData();
             log.info(response);
             return response;
         } else {
@@ -38,7 +39,7 @@ public class GreetingWebClient {
                     .uri("/guest?name=" + name)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange();
-            String response = ">> result = " + guestResult.flatMap(res -> res.bodyToMono(String.class)).block();
+            String response = ">> result = " + guestResult.flatMap(res -> res.bodyToMono(DataHolder.class)).block().getData();
             log.info(response);
             return response;
         }

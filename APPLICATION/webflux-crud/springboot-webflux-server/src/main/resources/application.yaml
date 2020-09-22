@@ -1,9 +1,9 @@
 server:
   port: 8080
 
-logging:
-  level:
-    root: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
 
 spring:
   data.mongodb:

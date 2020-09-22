@@ -6,6 +6,11 @@
 * docker run -p 27017-27019:27017-27019 --name mongodb mongo
 * docker ps -a 
 * docker stop <'container-id'>
+* docker rm -f <'container-id'>
+
+
+### Server up status endpoint 
+* curl -v  localhost:8080/api/event
 
 ### To save the employee in db 
 * curl -X POST -H "Content-Type: application/json" -d '{"id":1, "firstName":"adarsh","lastName":"kumar", "career":"it" }' http://localhost:8080/api/employee -v

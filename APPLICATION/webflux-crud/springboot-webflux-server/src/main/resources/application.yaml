@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+logging:
+  level:
+    root: DEBUG
+
 spring:
   data.mongodb:
     host: localhost

@@ -15,12 +15,12 @@ public class DataController {
     @Autowired
     DataService dataService;
 
-    @GetMapping(value = "/data-list/{limit}")
+    @GetMapping(value = "/controller/data-list/{limit}")
     public Flux<DataBean> getDataList(@PathVariable("limit") Integer limit) {
         return this.dataService.dataBeanList(limit);
     }
 
-    @GetMapping(value = "/data-stream/{limit}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/controller/data-stream/{limit}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<DataBean> getDataString(@PathVariable("limit") Integer limit) {
         return this.dataService.dataBeanStream(limit);
     }

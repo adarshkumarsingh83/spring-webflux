@@ -26,11 +26,16 @@ public class DataService {
 
     public Flux<DataBean> dataBeanFlux() {
         log.info("DataService::dataBeanFlux()");
-        List<DataBean> dataBeans =
+        /*List<DataBean> dataBeans =
                 IntStream.rangeClosed(0, dataRepository.getStoreSize() - 1)
-                        .distinct()
+                        .peek(index -> log.info("processing index {}", index))
                         .mapToObj(index -> new DataBean(dataRepository.getName(index)))
                         .collect(Collectors.toList());
-        return Flux.fromIterable(dataBeans);
+        return Flux.fromIterable(dataBeans);*/
+
+        return Flux.range(0, dataRepository.getStoreSize() - 1)
+                .doOnNext(index -> log.info("processing index {}", index))
+                .map(index -> new DataBean(dataRepository.getName(index)));
+
     }
 }

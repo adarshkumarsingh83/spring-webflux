@@ -16,20 +16,35 @@ public class DataHandler {
     DataService dataService;
 
     public Mono<ServerResponse> dataBeanList(ServerRequest serverRequest){
-        int limit = (int) serverRequest.attribute("limit").orElseGet(() -> 10); // for request param 
-        //int limit = Integer.parseInt(serverRequest.pathVariable("limit")); // for path variable
+        int limit = (int) serverRequest.attribute("limit").orElseGet(() -> 10); // for request param
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(dataService.dataBeanList(limit), DataBean.class);
     }
 
+
     public Mono<ServerResponse> dataBeanStream(ServerRequest serverRequest){
         int limit = (int) serverRequest.attribute("limit").orElseGet(() -> 10); // for request param
-        //int limit = Integer.parseInt(serverRequest.pathVariable("limit")); // for path variable
         return ServerResponse
                 .ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(dataService.dataBeanStream(limit), DataBean.class);
+    }
+
+    public Mono<ServerResponse> dataBeanStreamPathVariable(ServerRequest serverRequest){
+        int limit = Integer.parseInt(serverRequest.pathVariable("limit")); // for path variable
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(dataService.dataBeanStream(limit), DataBean.class);
+    }
+
+    public Mono<ServerResponse> dataBeanListPathVariable(ServerRequest serverRequest){
+        int limit = Integer.parseInt(serverRequest.pathVariable("limit")); // for path variable
+        return ServerResponse
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(dataService.dataBeanList(limit), DataBean.class);
     }
 }

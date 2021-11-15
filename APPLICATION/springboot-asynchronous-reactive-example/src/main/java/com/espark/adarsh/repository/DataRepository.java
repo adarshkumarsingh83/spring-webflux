@@ -30,10 +30,9 @@ public class DataRepository {
 
     public Flux<DataBean> dataBeanStream(int limit) {
         log.info("DataService::dataBeanStream() limit {}", limit);
-
         return Flux.range(0, limit)
-                .doOnNext(index -> log.info("processing index {}", index))
                 .delayElements(Duration.ofSeconds(1))
+                .doOnNext(index -> log.info("processing index {}", index))
                 .map(index -> new DataBean(index, "data_" + index));
 
     }

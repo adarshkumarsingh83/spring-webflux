@@ -9,11 +9,17 @@
 * mvn spring-boot:run 
 
 
-### To Access Api via router
+### To Access Api via router request variable 
 * To Access Non Stream Api
   * curl --request GET 'http://localhost:8080/router/data-list?limit=10'
 * To Access Stream Api
   * curl --request GET 'http://localhost:8080/router/data-stream?limit=10'
+
+### To Access Api via router path variable
+* To Access Non Stream Api
+  * curl --request GET 'http://localhost:8080/router/data-list/10'
+* To Access Stream Api
+  * curl --request GET 'http://localhost:8080/router/data-stream/10'
   
 ### To Access Api via controller
 * To Access Non Stream Api 

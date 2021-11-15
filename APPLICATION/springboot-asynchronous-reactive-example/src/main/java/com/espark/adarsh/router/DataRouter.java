@@ -12,6 +12,8 @@ public class DataRouter {
         return RouterFunctions.route()
                 .GET("/router/data-list", dataHandler::dataBeanList)
                 .GET("/router/data-stream", dataHandler::dataBeanStream)
+                .GET("/router/data-list/{limit}", dataHandler::dataBeanListPathVariable)
+                .GET("/router/data-stream/{limit}", dataHandler::dataBeanStreamPathVariable)
                 .build();
 
     }

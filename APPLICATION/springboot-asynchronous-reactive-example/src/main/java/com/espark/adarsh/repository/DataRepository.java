@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +33,7 @@ public class DataRepository {
 
         return Flux.range(0, limit)
                 .doOnNext(index -> log.info("processing index {}", index))
-                .doOnNext(DataRepository::delay)
+                .delayElements(Duration.ofSeconds(1))
                 .map(index -> new DataBean(index, "data_" + index));
 
     }

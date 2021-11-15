@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-asynchronous-reactive-example</artifactId>
+	<artifactId>springboot-webflux-asynchronous-reactive-example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-asynchronous-reactive-example</name>
+	<name>springboot-webflux-asynchronous-reactive-example</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>

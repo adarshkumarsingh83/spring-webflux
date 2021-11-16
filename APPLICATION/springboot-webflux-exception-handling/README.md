@@ -39,162 +39,309 @@ consumes error and spills it over. Stops execution for further elements in strea
 
 ### onErrorReturn: return fallback value
 ```   
-@Test
-public void onErrorReturnDirectly_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorReturn(4)
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+  @Test
+    public void onErrorReturnDirectly_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorReturnIfArithmeticException_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorReturn(ArithmeticException.class, 4)
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorReturnIfArithmeticException_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(ArithmeticException.class, 4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorReturnIfPredicatePasses_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorReturn(error -> error instanceof ArithmeticException, 4)
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorReturnIfPredicatePasses_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(error -> error instanceof ArithmeticException, 4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorReturnDirectly_Flex() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorReturnIfArithmeticException_Flex() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(ArithmeticException.class, 4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorReturnIfPredicatePasses_Flex() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorReturn(error -> error instanceof ArithmeticException, 4)
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 ```
 
 ### onErrorResume: return fallback value in terms on Mono/Flux
 ```   
-@Test
-public void onErrorResume_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorResume(error -> Mono.just(4))
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+ @Test
+    public void onErrorResume_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(error -> Mono.just(4))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorResumeIfArithmeticException_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorResume(
-            ArithmeticException.class,
-            error -> Mono.just(4)
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorResumeIfArithmeticException_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(
+                        ArithmeticException.class,
+                        error -> Mono.just(4)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorResumeIfPredicatePasses_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorResume(
-            error -> error instanceof ArithmeticException,
-            error -> Mono.just(4)
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorResumeIfPredicatePasses_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(
+                        error -> error instanceof ArithmeticException,
+                        error -> Mono.just(4)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+
+    @Test
+    public void onErrorResume_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(error -> Mono.just(4))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorResumeIfArithmeticException_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(
+                        ArithmeticException.class,
+                        error -> Mono.just(4)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorResumeIfPredicatePasses_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorResume(
+                        error -> error instanceof ArithmeticException,
+                        error -> Mono.just(4)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 ```
 
 ### onErrorContinue: consumes (error,data) and does NOT split it over
 ```  
-@Test
-public void onErrorContinue_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorContinue((error, obj) -> log.info("error:[{}], obj:[{}]", error, obj ))
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+ @Test
+    public void onErrorContinue_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue((error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorContinueIfArithmeticException_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorContinue(
-            ArithmeticException.class,
-            (error, obj) -> log.info("error:[{}], obj:[{}]", error, obj )
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorContinueIfArithmeticException_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue(
+                        ArithmeticException.class,
+                        (error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void onErrorContinueIfPredicatePasses_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorContinue(
-            error -> error instanceof ArithmeticException,
-            (error, obj) -> log.info("error:[{}], obj:[{}]", error, obj )
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void onErrorContinueIfPredicatePasses_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue(
+                        error -> error instanceof ArithmeticException,
+                        (error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+
+    @Test
+    public void onErrorContinue_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue((error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorContinueIfArithmeticException_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue(
+                        ArithmeticException.class,
+                        (error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void onErrorContinueIfPredicatePasses_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorContinue(
+                        error -> error instanceof ArithmeticException,
+                        (error, obj) -> log.info("Exception :[{}], DataObject :[{}]", error, obj)
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 ```
 
 
 ### doOnError: consumes error and spills it over
 ```   
-@Test
-public void doOnError_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .doOnError(error -> log.info("caught error"))
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+ @Test
+    public void doOnError_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(error -> log.info("Exception Caught & Processing"))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void doOnErrorIfArithmeticException_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .doOnError(
-            ArithmeticException.class,
-            error -> log.info("caught error")
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void doOnErrorIfArithmeticException_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(
+                        ArithmeticException.class,
+                        error -> log.info("Exception Caught & Processing")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void doOnErrorIfPredicatePasses_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .doOnError(
-            error -> error instanceof ArithmeticException,
-            error -> log.info("caught error")
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void doOnErrorIfPredicatePasses_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(
+                        error -> error instanceof ArithmeticException,
+                        error -> log.info("Exception Caught & Processing")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+
+    @Test
+    public void doOnError_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(error -> log.info("Exception Caught & Processing"))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void doOnErrorIfArithmeticException_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(
+                        ArithmeticException.class,
+                        error -> log.info("Exception Caught & Processing")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void doOnErrorIfPredicatePasses_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .doOnError(
+                        error -> error instanceof ArithmeticException,
+                        error -> log.info("Exception Caught & Processing")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
 ```
 
 
 ### onErrorMap: cast one error into another
 ```` 
-@Test
-public void OnErrorMap_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorMap(error -> new RuntimeException("SomeMathException"))
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+ @Test
+    public void OnErrorMap_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(error -> new RuntimeException("ApplicationCalculationException"))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void OnErrorMapIfArithmeticException_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorMap(
-            ArithmeticException.class,
-            error -> new RuntimeException("SomeMathException")
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void OnErrorMapIfArithmeticException_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(
+                        ArithmeticException.class,
+                        error -> new RuntimeException("ApplicationCalculationException")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 
-@Test
-public void OnErrorMapIfPredicatePasses_Mono() {
-    Mono.just(2)
-        .map(i -> i/0) // will produce ArithmeticException
-        .onErrorMap(
-            error -> error instanceof ArithmeticException,
-            error -> new RuntimeException("SomeMathException")
-        )
-        .subscribe(num -> log.info("Number: {}", num ));
-}
+    @Test
+    public void OnErrorMapIfPredicatePasses_Mono() {
+        dataService.getMonoInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(
+                        error -> error instanceof ArithmeticException,
+                        error -> new RuntimeException("ApplicationCalculationException")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void OnErrorMap_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(error -> new RuntimeException("ApplicationCalculationException"))
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void OnErrorMapIfArithmeticException_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(
+                        ArithmeticException.class,
+                        error -> new RuntimeException("ApplicationCalculationException")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
+
+    @Test
+    public void OnErrorMapIfPredicatePasses_Flux() {
+        dataService.getFluxInteger()
+                .map(i -> i / 0) // will produce ArithmeticException
+                .onErrorMap(
+                        error -> error instanceof ArithmeticException,
+                        error -> new RuntimeException("ApplicationCalculationException")
+                )
+                .subscribe(num -> log.info("Number: {}", num));
+    }
 ````

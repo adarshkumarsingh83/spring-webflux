@@ -5,6 +5,7 @@ import com.espark.adarsh.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
@@ -18,20 +19,23 @@ public class EmployeeHandler {
     EmployeeService employeeService;
 
     public Mono<ServerResponse> saveEmployee(ServerRequest serverRequest) {
-        Mono<Employee> employeeMono = serverRequest.bodyToMono(Employee.class);
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(employeeService.saveEmployee(employeeMono.block()), Employee.class)
-                .onErrorResume(e -> ServerResponse.badRequest().build());
+
+        return serverRequest.bodyToMono(Employee.class)
+                .flatMap(employee -> employeeService.saveEmployee(employee))
+                .flatMap(employeeMono -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(employeeMono)
+                        .onErrorResume(e -> ServerResponse.badRequest().build()));
     }
 
     public Mono<ServerResponse> updateEmployee(ServerRequest serverRequest) {
-        Mono<Employee> employeeMono = serverRequest.bodyToMono(Employee.class);
-        int employeeId = Integer.valueOf(serverRequest.pathVariable("empId"));
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(employeeService.updateEmployee(employeeId, employeeMono.block()), Employee.class)
-                .onErrorResume(e -> ServerResponse.badRequest().build());
+
+        return serverRequest.bodyToMono(Employee.class)
+                .flatMap(employee -> employeeService.updateEmployee(employee.getId(), employee))
+                .flatMap(employeeMono -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(employeeMono)
+                        .onErrorResume(e -> ServerResponse.badRequest().build()));
     }
 
     public Mono<ServerResponse> deleteEmployee(ServerRequest serverRequest) {

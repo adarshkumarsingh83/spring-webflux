@@ -43,9 +43,8 @@ public class EmployeeRepository {
         if (!store.containsKey(employeeId)) {
             throw new EmployeeNotExists("Employee Not Exist with Id " + employeeId);
         } else {
-            store.put(employee.getId(), employee);
+            return store.replace(employee.getId(), employee);
         }
-        return employee;
     }
 
     public Employee deleteEmployee(Integer employeeId) throws EmployeeNotExists {

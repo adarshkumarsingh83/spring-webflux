@@ -26,9 +26,9 @@ public class EmployeeService {
     public Mono<EmployeeBean> updateEmployee(Integer employeeId, EmployeeBean employeeBean) {
         log.info("EmployeeService:updateEmployee {} , {}", employeeId, employeeBean);
         return this.employeeRepository.findById(employeeId)
-                .flatMap(employeeEntity -> Mono.just(employeeBean)
-                        .map(employeeBeanMono -> employeeBeanMono.getEntity())
-                        .doOnNext(employeeEntity1 -> employeeEntity1.setId(employeeId)))
+                .flatMap(employeeEntityFromDb -> Mono.just(employeeBean)
+                        .map(employeeBeanToUpdate -> employeeBeanToUpdate.getEntity()))
+                .doOnNext(employeeEntity -> employeeEntity.setId(employeeId))
                 .flatMap(employeeRepository::save)
                 .map(employeeEntity -> employeeEntity.getBean());
     }

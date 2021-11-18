@@ -30,9 +30,9 @@ public class EmployeeHandler {
     }
 
     public Mono<ServerResponse> updateEmployee(ServerRequest serverRequest) {
-
+        int employeeId = Integer.valueOf(serverRequest.pathVariable("empId"));
         return serverRequest.bodyToMono(EmployeeBean.class)
-                .flatMap(employeeBean -> employeeService.updateEmployee(employeeBean.getId(), employeeBean))
+                .flatMap(employeeBean -> employeeService.updateEmployee(employeeId, employeeBean))
                 .flatMap(employeeBeanMono -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(employeeBeanMono)

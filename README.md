@@ -2,9 +2,9 @@
 spring webflux sample and documentation 
 
 
-![img](IMAGE/flux.png)
-![img](IMAGE/mono.png)
-![img](IMAGE/reactive-stream.png)
-![img](IMAGE/reactive-streams.png)
-![img](IMAGE/spring-webflux-eventloop.png)
-![img](IMAGE/spring-webflux.png)
+![img](IMAGES/flux.png)
+![img](IMAGES/mono.png)
+![img](IMAGES/reactive-stream.png)
+![img](IMAGES/reactive-streams.png)
+![img](IMAGES/spring-webflux-eventloop.png)
+![img](IMAGES/spring-webflux.png)

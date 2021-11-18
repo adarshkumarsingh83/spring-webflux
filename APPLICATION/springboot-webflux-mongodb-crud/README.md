@@ -14,7 +14,6 @@
 * $ sudo docker pull mongo
 
 ### To start mongo
-* $ docker run --name espark-mongo  mongo
 * $ docker run  -it -p 27017:27017 --name espark-mongo mongo:latest
 
 ### interact with the database through the bash shell client.

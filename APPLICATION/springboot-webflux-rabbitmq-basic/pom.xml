@@ -14,9 +14,9 @@
 	</parent>
 
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-webflux-rabbitmq</artifactId>
+	<artifactId>springboot-webflux-rabbitmq-basic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-webflux-rabbitmq</name>
+	<name>springboot-webflux-rabbitmq-basic</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -1,0 +1,19 @@
+
+spring:
+  data:
+    cassandra:
+      port: 9042
+      keyspace-name: espark
+      contact-points: localhost
+      schema-action: CREATE_IF_NOT_EXISTS
+      local-datacenter: espark-cassandra
+      entity-base-package: com.espark.adarsh.entity
+      connect-timeout-millis: 10000ms
+      read-timeout-millis: 10000ms
+      connect-timeout: 10000ms
+      read-timeout: 10000ms
+      username: cassandra
+      password: cassandra
+
+server:
+  port: 8080

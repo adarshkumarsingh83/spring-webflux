@@ -2,6 +2,7 @@
 
 ---
 
+[official docs](https://projectreactor.io/docs/rabbitmq/release/reference/#_overview)
 
 
 ### To Pull the docker Rabbitmq image from docker hub

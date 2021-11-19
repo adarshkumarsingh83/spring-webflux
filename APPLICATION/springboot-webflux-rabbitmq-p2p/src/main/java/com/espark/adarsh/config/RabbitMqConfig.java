@@ -58,16 +58,18 @@ public class RabbitMqConfig {
     @Bean
     Sender sender(Mono<Connection> connectionMono) {
         Sender sender = RabbitFlux.createSender(new SenderOptions().connectionMono(connectionMono));
-
+        String queueName = this.rabbitConfigurationProp.getQueueName();
+        String exchangeName = this.rabbitConfigurationProp.getQueues().get("espark-message-queue").getExchange();
+        String routingKey = this.rabbitConfigurationProp.getQueues().get("espark-message-queue").getRoutingKey();
         Mono<AMQP.Exchange.DeclareOk> exchange = sender.declareExchange(
-                ExchangeSpecification.exchange(this.rabbitConfigurationProp.getQueues().get(0).getExchange())
+                ExchangeSpecification.exchange(exchangeName)
         );
         Mono<AMQP.Queue.DeclareOk> queue = sender.declareQueue(
-                QueueSpecification.queue(this.rabbitConfigurationProp.getQueueName())
+                QueueSpecification.queue(queueName)
         );
         Mono<AMQP.Queue.BindOk> binding = sender.bind(
-                BindingSpecification.binding().exchange(this.rabbitConfigurationProp.getQueues().get(0).getExchange())
-                        .queue(this.rabbitConfigurationProp.getQueueName()).routingKey(this.rabbitConfigurationProp.getQueues().get(0).getRoutingKey())
+                BindingSpecification.binding().exchange(exchangeName)
+                        .queue(queueName).routingKey(routingKey)
         );
         return sender;
     }

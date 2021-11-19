@@ -1,0 +1,20 @@
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+espark:
+  connection-name: espark-reactor-rabbit
+  queue-name: espark-queue
+  queues:
+    espark-message-queue:
+      exchange: espark-exchange
+      routing-key: espark-key
+  topics:
+    espark-message-topic:
+      exchange: espark-exchange
+      routing-key: espark-key

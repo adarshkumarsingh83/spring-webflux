@@ -9,7 +9,6 @@ import reactor.rabbitmq.OutboundMessage;
 import reactor.rabbitmq.Sender;
 
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 @Slf4j
 @Service
@@ -22,6 +21,7 @@ public class MessageSenderService {
     RabbitConfigurationProp rabbitConfigurationProp;
 
     public Flux<String> sendMessageToRabbitMq(List<String> message) {
+        ReactorRabbitMq
         Flux<OutboundMessage> outboundMessageFlux = Flux.range(0, message.size())
                 .map(item -> new OutboundMessage(rabbitConfigurationProp.getQueues().get(0).getExchange()
                         , rabbitConfigurationProp.getQueues().get(0).getRoutingKey()

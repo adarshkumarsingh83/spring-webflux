@@ -1,15 +1,13 @@
 package com.espark.adarsh.util;
 
 import com.espark.adarsh.bean.EmployeeBean;
-import com.espark.adarsh.entity.EmployeeEntity;
 import com.espark.adarsh.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
-
-import javax.annotation.PostConstruct;
-import java.util.stream.IntStream;
 
 @Slf4j
 @Component
@@ -18,7 +16,7 @@ public class DataLoader {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     public void init() {
 
         Flux<EmployeeBean> employeeEntityFlux = Flux.range(0, 10)

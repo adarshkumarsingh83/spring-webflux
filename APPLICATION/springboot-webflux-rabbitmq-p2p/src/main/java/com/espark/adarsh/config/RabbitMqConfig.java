@@ -85,9 +85,9 @@ public class RabbitMqConfig {
     }
 
 
-    @PreDestroy
+  /*  @PreDestroy
     public void close() throws Exception {
         connectionMono.block().close();
-    }
+    }*/
 
 }

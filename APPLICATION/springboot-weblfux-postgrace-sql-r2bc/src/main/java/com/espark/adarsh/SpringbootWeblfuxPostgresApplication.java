@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableR2dbcAuditing
 @EnableR2dbcRepositories
 @Import({ApplicationConfiguration.class})
-public class SpringbootWeblfuxMongoApplication {
+public class SpringbootWeblfuxPostgresApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootWeblfuxMongoApplication.class, args);
+        SpringApplication.run(SpringbootWeblfuxPostgresApplication.class, args);
     }
 
 }

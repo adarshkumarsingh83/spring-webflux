@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.espark.adarsh</groupId>
-	<artifactId>springboot-weblfux-postgrace-sql-r2bc</artifactId>
+	<artifactId>springboot-weblfux-mqsql-r2bc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-weblfux-postgrace-sql-r2bc</name>
+	<name>springboot-weblfux-mqsql-r2bc</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -21,10 +21,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-pool</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
@@ -38,12 +35,16 @@
 		</dependency>
 		<dependency>
 			<groupId>io.r2dbc</groupId>
-			<artifactId>r2dbc-postgresql</artifactId>
+			<artifactId>r2dbc-pool</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>dev.miku</groupId>
+			<artifactId>r2dbc-mysql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

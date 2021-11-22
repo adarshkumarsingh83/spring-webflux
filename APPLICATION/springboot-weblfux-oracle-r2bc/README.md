@@ -9,6 +9,7 @@
 * mvn spring-boot:run
 
 ---
+
 # ORACLE DB DOCKER IMAGE AND DEPLOYMENT
 ## Clone the git hub from oracle
 *  git clone git@github.com:oracle/docker-images.git

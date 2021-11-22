@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableR2dbcAuditing
 @EnableR2dbcRepositories
 @Import({ApplicationConfiguration.class})
-public class SpringbootWeblfuxMysqlApplication {
+public class SpringbootWeblfuxOracleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootWeblfuxMysqlApplication.class, args);
+        SpringApplication.run(SpringbootWeblfuxOracleApplication.class, args);
     }
 
 }

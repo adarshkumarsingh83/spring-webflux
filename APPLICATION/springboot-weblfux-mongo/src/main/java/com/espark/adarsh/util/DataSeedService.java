@@ -18,11 +18,12 @@ public class DataSeedService {
 
 
     private final DataEntityRepository dataEntityRepository;
+    private static int index = 0;
 
     @Scheduled(fixedDelay = 1000)
     public void dataSeeder() {
         Flux.just("adarsh@kumar:" + Instant.now())
-                .map(name -> new DataEntity(null, name))
+                .map(name -> new DataEntity(index++, name))
                 .flatMap(this.dataEntityRepository::save)
                 .delayElements(Duration.ofSeconds(1))
                 .subscribe(log::info);

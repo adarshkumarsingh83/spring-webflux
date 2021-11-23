@@ -15,12 +15,13 @@ import reactor.core.publisher.Flux;
 public class DataInitializer {
 
     private final DataEntityRepository entityRepository;
+    private static int index = 0;
 
     @EventListener(ApplicationReadyEvent.class)
     public void init() {
         log.info("DataInitializer::init ");
         Flux<DataEntity> dataEntityFlux = Flux.just("adarsh", "radha", "amit", "sonu", "monu", "mummy", "papa")
-                .map(name -> new DataEntity(null, name))
+                .map(name -> new DataEntity(index++, name))
                 .flatMap(this.entityRepository::save);
         this.entityRepository.deleteAll()
                 .thenMany(dataEntityFlux)

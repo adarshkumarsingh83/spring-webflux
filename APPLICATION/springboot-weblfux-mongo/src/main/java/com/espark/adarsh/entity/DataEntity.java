@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class DataEntity {
 
     @Id
-    String id;
+    Integer id;
     String name;
 
 }

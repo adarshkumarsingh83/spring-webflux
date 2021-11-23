@@ -15,6 +15,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -26,15 +28,31 @@ public class DataEntityHandler {
         Flux<DataEntity> dataEntityFlux = this.dataEntityRepository.findAll();
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Cache-Control","No")
+                .header("Cache-Control", "No")
                 .body(dataEntityFlux, DataEntity.class)
                 .onErrorResume(e -> ServerResponse.status(500).build());
     }
 
-    public Mono<ServerResponse> fetchDataStream(ServerRequest serverRequest) {
+  /*  public Mono<ServerResponse> fetchDataStream(ServerRequest serverRequest) {
         return ServerResponse.ok()
                 .contentType(MediaType.valueOf(MediaType.TEXT_EVENT_STREAM_VALUE))
                 .body(dataEntityRepository.findAll(), DataEntity.class)
                 .onErrorResume(e -> ServerResponse.status(500).build());
+    }*/
+
+    public Mono<ServerResponse> fetchDataStream(ServerRequest serverRequest) {
+
+        Flux<DataEntity> dataEntityFlux = Flux.range(0, Integer.MAX_VALUE)
+                .delayElements(Duration.ofSeconds(1))
+                .doOnNext(index -> log.info("Processing Index {}", index))
+                .map(index -> new DataEntity(index,"adarsh@kumar"))
+                .doOnNext(dataEntity -> log.info("Data Return {}", dataEntity))
+                .filter(dataEntity -> dataEntity != null);
+
+        return ServerResponse.ok()
+                .contentType(MediaType.valueOf(MediaType.TEXT_EVENT_STREAM_VALUE))
+                .body(dataEntityFlux, DataEntity.class)
+                .onErrorResume(e -> ServerResponse.status(500).build());
     }
+
 }

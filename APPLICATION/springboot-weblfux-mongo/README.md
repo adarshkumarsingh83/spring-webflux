@@ -1,4 +1,4 @@
-# SPRINGBOOT WEBFLUX MONGO REACTIVE 
+# SPRING BOOT WEB FLUX MONGO REACTIVE 
 
 ----
 
@@ -30,3 +30,7 @@ $ db.employee.save({ name: "adarsh",email:"adarsh@kumar" })
 $ db.employee.save({ name: "radha",email:"radha@singh" })
 $ db.employee.find({ name: "adarsh" })
 ---
+
+
+### 
+* curl -X GET 'http://localhost:8080/router/stream' -H "Accept: text/event-stream"

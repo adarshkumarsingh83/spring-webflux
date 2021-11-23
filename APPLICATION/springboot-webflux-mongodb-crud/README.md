@@ -24,9 +24,11 @@
 * $ use espark
 
 ### save and fetch operation via mongo shell 
+```
 $ db.employee.save({ name: "adarsh",email:"adarsh@kumar" })
 $ db.employee.save({ name: "radha",email:"radha@singh" })
 $ db.employee.find({ name: "adarsh" })
+```
 ---
 
 ### To Access the api via Router

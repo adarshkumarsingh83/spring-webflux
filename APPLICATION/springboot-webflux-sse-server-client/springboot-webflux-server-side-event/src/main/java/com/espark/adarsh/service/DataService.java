@@ -16,14 +16,14 @@ public class DataService {
 
     public Flux<String> streamFlux() {
         return Flux.interval(Duration.ofSeconds(1))
-                .doOnNext(index -> log.info("processing index in flux {}", index))
+                .doOnNext(index -> log.info("processing index in flux stream {}", index))
                 .map(sequence -> " Welcome to Espark from Flux -> " + LocalTime.now().toString());
 
     }
 
     public Flux<MessageBean<String>> streamFluxObject() {
         return Flux.interval(Duration.ofSeconds(1))
-                .doOnNext(index -> log.info("processing index in flux stream {}", index))
+                .doOnNext(index -> log.info("processing index in flux stream object {}", index))
                 .map(sequence -> {
                     return MessageBean.<String>builder()
                             .id(sequence)

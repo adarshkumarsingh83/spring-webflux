@@ -25,4 +25,10 @@ public class ApplicationController {
         this.applicationService.triggerFluxStream();
         return "started working on webflux stream  api call";
     }
+
+    @GetMapping("/trigger-flux-object")
+    public String triggerFluxObject() {
+        this.applicationService.triggerFluxStreamObject();
+        return "started working on webflux object stream  api call";
+    }
 }

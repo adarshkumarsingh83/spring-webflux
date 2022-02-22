@@ -20,3 +20,10 @@
 ```
 started working on webflux stream  api call
 ```
+
+### To Access the flux object client
+### ENSURE THE SPRING BOOT WEBFLUX SERVERSIDE EVENT APPLICATION IS RUNNING
+* curl -X GET http://localhost:8090/trigger-flux-object
+```
+started working on webflux object stream api call
+```

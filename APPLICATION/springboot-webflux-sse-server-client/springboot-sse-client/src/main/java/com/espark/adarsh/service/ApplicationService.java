@@ -1,5 +1,6 @@
 package com.espark.adarsh.service;
 
+import com.espark.adarsh.bean.MessageBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.codec.ServerSentEvent;
@@ -28,11 +29,12 @@ public class ApplicationService {
                 .bodyToFlux(type);
 
         eventStream.subscribe(
-                content -> log.info("Time: {} - event: name[{}], id [{}], content[{}] ",
+                content -> log.info("Time: {} - event-name:{}, id:{}, sseObject:{} ",
                         LocalTime.now(), content.event(), content.id(), content.data()),
                 error -> log.error("Error receiving SSE: {}", error),
                 () -> log.info("Completed!!!"));
     }
+
 
     @Async
     public void triggerFluxStream() {
@@ -46,6 +48,22 @@ public class ApplicationService {
         eventStream.subscribe(
                 content -> log.info("Time: {} - content: {} ",
                         LocalTime.now(), content),
+                error -> log.error("Error receiving SSE: {}", error),
+                () -> log.info("Completed!!!"));
+    }
+
+    @Async
+    public void triggerFluxStreamObject() {
+
+        Flux<MessageBean<String>> eventStream = client.get()
+                .uri("/router/data-stream-flux-object")
+                .retrieve()
+                .bodyToFlux(new ParameterizedTypeReference<MessageBean<String>>() {
+                });
+
+        eventStream.subscribe(
+                content -> log.info("Time: {} - event-name:{}, id:{}, fluxObject:{} ",
+                        LocalTime.now(), content.getEvent(), content.getId(), content.getData()),
                 error -> log.error("Error receiving SSE: {}", error),
                 () -> log.info("Completed!!!"));
     }

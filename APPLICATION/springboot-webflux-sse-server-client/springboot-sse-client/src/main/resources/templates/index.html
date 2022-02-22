@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <script data-th-href="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script data-th-href="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script data-th-href="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<!--
+ ony from js directly we can do like this also
+<script>
+    var source = new EventSource('http://localhost:8080/router/data-stream-flux');
+    source.onmessage = function(e) {
+      document.body.innerHTML += e.data + '<br>';
+    };
+  </script>
+ -->
+<div class="container">
+
+    <div class="row">
+        <div id="title">
+            <h1>Spring WebFlux Thymeleaf Server Side Event</h1>
+        </div>
+        <table id="data" class="table table-striped">
+            <thead>
+            <tr>
+                <th width="33%">id</th>
+                <th width="33%">event</th>
+                <th width="33%">data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="result" data-th-each="element : ${data}">
+                <td>[[${element.id}]]</td>
+                <td>[[${element.event}]]</td>
+                <td>[[${element.data}]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

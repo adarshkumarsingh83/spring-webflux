@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -55,10 +58,10 @@ public class ApplicationService {
     @Async
     public void triggerFluxStreamObject() {
 
-        Flux<MessageBean<String>> eventStream = client.get()
+        Flux<MessageBean> eventStream = client.get()
                 .uri("/router/data-stream-flux-object")
                 .retrieve()
-                .bodyToFlux(new ParameterizedTypeReference<MessageBean<String>>() {
+                .bodyToFlux(new ParameterizedTypeReference<MessageBean>() {
                 });
 
         eventStream.subscribe(
@@ -66,5 +69,18 @@ public class ApplicationService {
                         LocalTime.now(), content.getEvent(), content.getId(), content.getData()),
                 error -> log.error("Error receiving SSE: {}", error),
                 () -> log.info("Completed!!!"));
+    }
+
+    public Flux<MessageBean> getFluxStreamFromRemoteServer() {
+        log.info(" ApplicationService.getFluxStreamFromRemoteServer()...");
+        Flux<MessageBean> eventStream = client.get()
+                .uri("/router/data-stream-flux-object")
+                .retrieve()
+                .bodyToFlux(new ParameterizedTypeReference<MessageBean>() {
+                });
+        return eventStream
+                .delaySequence(Duration.ofSeconds(1))
+                .map(e -> e )
+                .doOnNext(e -> log.info("element " + e));
     }
 }

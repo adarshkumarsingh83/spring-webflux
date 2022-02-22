@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageBean<T> implements Serializable {
+public class MessageBean implements Serializable {
     private Long id;
     private String event;
-    private T data;
+    private String data;
 }

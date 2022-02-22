@@ -8,6 +8,11 @@
 ### To Run the Application 
 * mvn spring-boor:run 
 
+### To Access the ui page for result 
+* http://localhost:8090/
+### ENSURE THE SPRING BOOT WEBFLUX SERVERSIDE EVENT APPLICATION IS RUNNING
+
+
 ### To access the sse client 
 ### ENSURE THE SPRING BOOT WEBFLUX SERVERSIDE EVENT APPLICATION IS RUNNING
 * $ curl -X GET http://localhost:8090/trigger-sse

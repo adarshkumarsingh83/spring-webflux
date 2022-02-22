@@ -23,7 +23,7 @@ public class DataService {
 
     public Flux<MessageBean<String>> streamFluxObject() {
         return Flux.interval(Duration.ofSeconds(1))
-                .doOnNext(index -> log.info("processing index in flux {}", index))
+                .doOnNext(index -> log.info("processing index in flux stream {}", index))
                 .map(sequence -> {
                     return MessageBean.<String>builder()
                             .id(sequence)

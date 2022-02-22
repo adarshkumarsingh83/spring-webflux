@@ -1,10 +1,12 @@
 package com.espark.adarsh.handler;
 
+import com.espark.adarsh.config.RabbitConfigurationProp;
 import com.espark.adarsh.service.reciver.MessageReceiverService;
 import com.espark.adarsh.service.sender.MessageSenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -23,11 +25,17 @@ public class MessageHandler {
     @Autowired
     MessageReceiverService messageReceiverService;
 
+    @Autowired
+    RabbitConfigurationProp rabbitConfigurationProp;
+
     public Mono<ServerResponse> publishMessage(ServerRequest serverRequest) {
         log.info("MessageHandler::publishMessage");
+        RabbitConfigurationProp.Configuration configuration = rabbitConfigurationProp.getQueues().get("espark-message-queue");
+        if (configuration == null) {
+            return ServerResponse.badRequest().build();
+        }
         return serverRequest.bodyToMono(List.class)
-                .map(list -> (List<String>) list)
-                .flatMap(messageList -> messageSenderService.sendMessageToRabbitMq(messageList).collectList())
+                .flatMap(messageList -> messageSenderService.sendMessageToRabbitMq(configuration, messageList))
                 .doOnNext(responseDataList -> log.info("Response After Publishing", responseDataList))
                 .flatMap(messages -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(messages)
@@ -38,7 +46,7 @@ public class MessageHandler {
         log.info("MessageHandler::subscribeMessage");
         return ServerResponse.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
-                .body(messageReceiverService.consumeDataFromRabbitMq(), List.class)
+                .bodyValue(messageReceiverService.consumeDataFromRabbitMq())
                 .onErrorResume(e -> ServerResponse.badRequest().build());
     }
 }

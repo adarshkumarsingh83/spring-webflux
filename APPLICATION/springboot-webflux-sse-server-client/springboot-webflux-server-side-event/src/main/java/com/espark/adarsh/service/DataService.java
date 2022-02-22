@@ -1,5 +1,6 @@
 package com.espark.adarsh.service;
 
+import com.espark.adarsh.bean.MessageBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,19 @@ public class DataService {
         return Flux.interval(Duration.ofSeconds(1))
                 .doOnNext(index -> log.info("processing index in flux {}", index))
                 .map(sequence -> " Welcome to Espark from Flux -> " + LocalTime.now().toString());
+
+    }
+
+    public Flux<MessageBean<String>> streamFluxObject() {
+        return Flux.interval(Duration.ofSeconds(1))
+                .doOnNext(index -> log.info("processing index in flux {}", index))
+                .map(sequence -> {
+                    return MessageBean.<String>builder()
+                            .id(sequence)
+                            .event("flux-stream-event")
+                            .data(" Welcome to Espark from Flux -> " + LocalTime.now().toString())
+                            .build();
+                });
     }
 
     public Flux<ServerSentEvent<String>> streamEvents() {

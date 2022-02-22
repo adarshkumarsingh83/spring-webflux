@@ -12,6 +12,7 @@ public class DataRouter {
     public RouterFunction<ServerResponse> routerFunction(DataHandler dataHandler) {
         return RouterFunctions.route()
                 .GET("/router/data-stream-flux", dataHandler::streamFlux)
+                .GET("/router/data-stream-flux-object", dataHandler::streamFluxObject)
                 .GET("/router/data-stream-sse", dataHandler::streamEvents)
                 .build();
 

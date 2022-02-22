@@ -1,5 +1,6 @@
 package com.espark.adarsh.handler;
 
+import com.espark.adarsh.bean.MessageBean;
 import com.espark.adarsh.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +19,12 @@ public class DataHandler {
         return ServerResponse.ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(dataService.streamFlux(), String.class);
+    }
+
+    public Mono<ServerResponse> streamFluxObject(ServerRequest serverRequest) {
+        return ServerResponse.ok()
+                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .body(dataService.streamFluxObject(), String.class);
     }
 
     public Mono<ServerResponse> streamEvents(ServerRequest serverRequest) {

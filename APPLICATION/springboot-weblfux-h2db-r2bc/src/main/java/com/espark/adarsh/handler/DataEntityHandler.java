@@ -15,6 +15,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -26,7 +28,8 @@ public class DataEntityHandler {
         Flux<DataEntity> dataEntityFlux = this.dataEntityRepository.findAll();
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .header("Cache-Control","No")
+                .header("Cache-Control","no-cache")
+                .header("Connection","keep-alive")
                 .body(dataEntityFlux, DataEntity.class)
                 .onErrorResume(e -> ServerResponse.status(500).build());
     }
@@ -34,7 +37,9 @@ public class DataEntityHandler {
     public Mono<ServerResponse> fetchDataStream(ServerRequest serverRequest) {
         return ServerResponse.ok()
                 .contentType(MediaType.valueOf(MediaType.TEXT_EVENT_STREAM_VALUE))
-                .body(dataEntityRepository.findAll(), DataEntity.class)
+                .header("Cache-Control","no-cache")
+                .header("Connection","keep-alive")
+                .body(dataEntityRepository.findAll().delayElements(Duration.ofSeconds(1)), DataEntity.class)
                 .onErrorResume(e -> ServerResponse.status(500).build());
     }
 }

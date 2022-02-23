@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
+@EnableWebFlux
 @EnableScheduling
 @SpringBootApplication
 @EnableR2dbcAuditing

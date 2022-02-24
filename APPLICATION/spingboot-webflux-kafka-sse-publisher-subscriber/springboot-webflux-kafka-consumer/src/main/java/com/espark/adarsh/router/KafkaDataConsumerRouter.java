@@ -16,6 +16,7 @@ public class KafkaDataConsumerRouter {
     public RouterFunction<ServerResponse> routerFunction(KafkaDataHandler kafkaDataHandler) {
         return RouterFunctions.route()
                 .GET("/router/stream", kafkaDataHandler::fetchDataStream)
+                .GET("/router/sse", kafkaDataHandler::fetchServerSideEvent)
                 .build();
     }
 }

@@ -7,6 +7,7 @@ import reactor.core.publisher.Flux;
 import reactor.kafka.receiver.KafkaReceiver;
 import reactor.kafka.receiver.ReceiverRecord;
 
+
 @Slf4j
 @Service
 public class KafkaDataConsumerService {
@@ -22,4 +23,5 @@ public class KafkaDataConsumerService {
                 .map(ReceiverRecord::value)
                 .checkpoint("DataConsumerService has Consumed Data From Kafka");
     }
+
 }

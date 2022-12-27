@@ -24,7 +24,7 @@ public class ApplicationConfig {
     @Bean
     WebClient webClient(ObjectMapper objectMapper) {
         return WebClient.builder()
-                .baseUrl("http://localhost:8080/api/")
+                .baseUrl("http://localhost:8080")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

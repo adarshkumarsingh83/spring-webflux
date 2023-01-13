@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: springboot-webflux-employee-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: employee
+server:
+  port: 0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+

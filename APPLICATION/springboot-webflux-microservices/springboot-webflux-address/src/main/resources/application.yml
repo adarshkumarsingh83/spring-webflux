@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: springboot-webflux-address-service
+    name: address-service
   data:
     mongodb:
       host: localhost
@@ -11,8 +11,12 @@ server:
   port: 0
 eureka:
   client:
+    register-with-eureka: true
+    fetch-registry: true
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
+    instance-id: ${spring.application.name}-${random.int}
+    hostname: localhost
     preferIpAddress: true
 
